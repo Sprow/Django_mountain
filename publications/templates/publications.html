@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="{% url 'publications' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+    <p>Publications:</p>
+    {% for publication in publications %}
+        {{ publication.title }} <br>
+        {{ publication.body }} <br>
+        {{ publication.image.url }} <br>
+        {{ publication.added }} <br>
+        {{ publication.author.first_name }} <br>
+    {% endfor %}
+{% endblock content %}
