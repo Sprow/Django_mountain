@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Wini</title>
+    <title>project</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
@@ -14,7 +14,9 @@
         <a href="{% url 'home' %}" class="brand-logo">Logo</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             {% if request.user.is_authenticated %}
+                <li><a href="{% url 'publications' %}">Read publications</a></li>
                 <li><a href="{% url 'logout' %}">Sign Out</a></li>
+
             {% else %}
                 <li><a href="{% url 'login' %}">Sign In</a></li>
             {% endif %}

@@ -15,3 +15,8 @@ class User(AbstractUser):
 
     class Meta:
         swappable = 'AUTH_USER_MODEL'
+
+class WebsiteSettings(models.Model):
+    title = models.CharField(max_length=255)
+    favicon = models.FileField(upload_to=get_file_path, blank=True, null=True)
+    descript = models.TextField()

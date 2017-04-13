@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 
 from publications.models import Publication
@@ -15,5 +16,13 @@ def publications(request):
                                        image=data.get("image"),
                                        author=request.user)
     publications = Publication.objects.all()
+    paginator = Paginator(publications, 2)
+    page = request.GET.get('page')
+    try:
+        publications = paginator.page(page)
+    except PageNotAnInteger:
+        publications = paginator.page(1)
+    except EmptyPage:
+        publications = paginator.page(paginator.num_pages)
     return render(request, "publications.html", {"publications": publications,
                                                  "form": form})

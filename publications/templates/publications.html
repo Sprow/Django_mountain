@@ -1,17 +1,40 @@
 {% extends "base.html" %}
+{% load humanize %}
+{% load castom_datetime %}
 
 {% block content %}
     <form action="{% url 'publications' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
-        <input type="submit">
+        <input type="submit" value="Click">
     </form>
     <p>Publications:</p>
     {% for publication in publications %}
         {{ publication.title }} <br>
-        {{ publication.body }} <br>
+        {{ publication.body | safe }} <br>
         {{ publication.image.url }} <br>
-        {{ publication.added }} <br>
-        {{ publication.author.first_name }} <br>
+        {{ publication.added | naturaltime }} <br>
+        {{ publication.added | our_castom_datetime }} <br>
+{#        {% now "jS \o\f F" %}<br>#}
+        {{ publication.author.email }} <br>
+        <br>
+        <br>
     {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if publications.has_previous %}
+                <a href="?page={{ publications.previous_page_number }}"><--previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ publications.number }} of {{ publications.paginator.num_pages }}.
+            </span>
+
+            {% if publications.has_next %}
+                <a href="?page={{ publications.next_page_number }}">next--></a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock content %}
+

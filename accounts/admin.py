@@ -2,8 +2,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from accounts.models import User
+from accounts.models import User, WebsiteSettings
 
+from solo.admin import SingletonModelAdmin
 
 class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
@@ -22,3 +23,5 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('is_staff', 'is_superuser', 'is_active')
 
 admin.site.register(User, CustomUserAdmin)
+
+admin.site.register(WebsiteSettings, SingletonModelAdmin)
