@@ -54,8 +54,5 @@ def registerate_user(request):
                     user = User.objects.create_user(email=data.get("email"),
                                                     password=data.get("password1"),
                                                     username=data.get("username"))
-                    return HttpResponseRedirect(reverse("home"))
-                    # return render(request, 'registration.html', {"form": form})
-
-                # return HttpResponseRedirect('/accounts/home')
+                    return HttpResponseRedirect(reverse("login"))
     return render(request, 'registration.html', {"form": form})

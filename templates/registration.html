@@ -1,14 +1,50 @@
 {% extends "base.html" %}
 
+{#{% block content %}#}
+{#    <form class="col s12" action="{% url 'registration' %}" method="POST">#}
+{#        {% csrf_token %}#}
+{##}
+{#        {% for error in form.non_field_errors %}#}
+{#            {{ error|escape }}#}
+{#        {% endfor %}#}
+{##}
+{#        {{ form }}#}
+{#        <button type="submit">Registrate!</button>#}
+{#    </form>#}
+{#{% endblock content %}#}
+
 {% block content %}
-    <form action="{% url 'registration' %}" method="POST">
+    <form class="col s12" action="{% url 'registration' %}" method="POST">
         {% csrf_token %}
+    
+        {% if form.email.errors %}
+            {{ form.email.errors }}
+        {% endif %}
+        <div class="input-field col s6">
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+        </div>
 
-        {% for error in form.non_field_errors %}
-            {{ error|escape }}
-        {% endfor %}
+        <div class="input-field col s6">
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+        </div>
 
-        {{ form }}
-        <button type="submit">Registrate!</button>
+        {% if form.password.errors %}
+            {{ form.password.errors }}
+        {% endif %}
+        <div class="input-field col s6">
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password1 }}
+        </div>
+
+        {% if form.password.errors %}
+            {{ form.password.errors }}
+        {% endif %}
+        <div class="input-field col s6">
+            <label for="{{ form.password.id_for_label }}">Confirm password</label>
+            {{ form.password2 }}
+        </div>
+        <button type="submit" class="waves-effect waves-light btn">Registrate!</button>
     </form>
-{% endblock content %}
+{% endblock %}
