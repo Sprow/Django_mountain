@@ -15,25 +15,32 @@
         {{ publication.image.url }} <br>
         {{ publication.added | naturaltime }} <br>
         {{ publication.added | our_castom_datetime }} <br>
-{#        {% now "jS \o\f F" %}<br>#}
+        {#        {% now "jS \o\f F" %}<br>#}
         {{ publication.author.email }} <br>
+        <a href="{% url 'single_publication' publication_id=publication.id %}">Make/Read comments</a> <br>
         <br>
         <br>
     {% endfor %}
 
     <div class="pagination">
         <span class="step-links">
+
             {% if publications.has_previous %}
-                <a href="?page={{ publications.previous_page_number }}"><--previous</a>
+                <a href="?page=1"><<<--first</a>
+                <a href="?page={{ publications.previous_page_number }}"><-previous</a>
             {% endif %}
 
-            <span class="current">
-                Page {{ publications.number }} of {{ publications.paginator.num_pages }}.
-            </span>
+            {% for page_num in paginator_gen_list %}
+                {% if page_num != "..." %}
+                    <a href="?page={{ page_num }}">{{ page_num }}</a>
+                {% endif %}
+            {% endfor %}
 
             {% if publications.has_next %}
-                <a href="?page={{ publications.next_page_number }}">next--></a>
+                <a href="?page={{ publications.next_page_number }}">next-></a>
+                <a href="?page={{ last_page }}">last page --->></a>
             {% endif %}
+
         </span>
     </div>
 {% endblock content %}

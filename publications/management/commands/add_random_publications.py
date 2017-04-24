@@ -4,14 +4,14 @@ from accounts.models import User
 
 from publications.models import Publication
 from random import randint
-
+from string import printable
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
         user = User.objects.all()
 
-        for i in range(3):
-            rand_string = "qwertyuiopasdfghjkl;zxcvbnm, 1234567890-="
+        for i in range(15):
+            rand_string = printable
             super_rand_string = ""
             for index in range(randint(1, 9)):
                 super_rand_string += rand_string[randint(0, len(rand_string) - 1)] * randint(0, 20)

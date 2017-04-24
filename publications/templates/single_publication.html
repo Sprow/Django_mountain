@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+
+{% block content %}
+    single publication <br>
+    title: {{ publication.title }} <br>
+    body: {{ publication.body | safe }} <br>
+    image url: {{ publication.image.url }} <br>
+    {{ publication.added | naturaltime }} <br>
+    author: {{ publication.author.email }} <br>
+    Likes : {{ publication.get_likes_count }}
+    <a href="{% url 'like_single_publication' publication_id=publication.id %}">LIKE</a> <br>
+
+{#    Comment {{ publication.get_all_comments }}#}
+
+    {% for comment in publication.comments.all %}
+        Comment: {{ comment.comment }} <br>
+        author: {{ comment.user.email }} <br>
+        {{ publication.added | naturaltime }} <br>
+        <br>
+    {% endfor %}
+
+    <form action="{% url 'single_publication' publication_id=publication.id %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+{% endblock content %}
