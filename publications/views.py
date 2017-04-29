@@ -4,7 +4,15 @@ from django.core.urlresolvers import reverse
 
 from publications.models import Publication, PublicationLike, PublicationComment
 from publications.forms import PublicationForm, PublicationCommentForm
+
+from publications.serializers import PublicationSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+
 from utils import gen_page_list
+
+
 
 
 def publications(request):
@@ -59,4 +67,9 @@ def like_single_publication(request, publication_id):
     else:
         return HttpResponseRedirect(reverse("login"))
 
-
+@api_view(["GET"])
+def publication_as_json(request, publication_id):
+    publication = get_object_or_404(Publication, pk=publication_id)
+    publications = Publication.objects.all()
+    serializer = PublicationSerializer(publications, many=True)
+    return Response(serializer.data)

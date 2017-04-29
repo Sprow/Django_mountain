@@ -15,6 +15,4 @@ class RegistrationForm(forms.Form):
     password2 = forms.CharField(min_length=4, max_length=10, widget=forms.TextInput(attrs={"type": "password"}))
 
 
-    # class Meta:
-    #     model = User
-    #     fields = ('email', 'password1', 'password2')
+
